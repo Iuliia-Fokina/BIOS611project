@@ -1,6 +1,6 @@
 #!/bin/bash
-./BIOS611PR/Container.sh 
-docker build . -t 611/BIOS611PR
+./Container.sh 
+docker build . -t bios611pr
 #check if the display variable is set
 if [ -z "$DISPLAY" ]; then
 echo "error: display environment variable is not set"
