@@ -8,5 +8,7 @@ date: "2024-10-06"
 This is a project for BIOS611. The dataset I use is an eye tracking data from ~50 healthy adults reading 6 short texts with different reading goals. 
 
 ```{r setup}
-data <- read.csv ("./MI_AOI.csv")
+setwd("~/R")
+library(tidyverse);
+data<-read_csv("./MI_AOI.csv");
 ```
