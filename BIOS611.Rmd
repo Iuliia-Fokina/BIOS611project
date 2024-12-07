@@ -14,7 +14,7 @@ This project was created for 611 class, fall 2024. The data set I am using is a 
 ## data source
 
 ```{r setwd}
-setwd("~/R")
+setwd("~/work")
 library(tidyverse);
 library(ggplot2);
 cleaned_data <- read.csv ("./cleaned_data2.csv");
@@ -65,7 +65,7 @@ plot <- ggplot(pca_plot_data, aes(x = PC1, y = PC2)) +
     color = "Reading"
   ) +
   theme_minimal()
-ggsave("figures/PCA: PC1 vs PC2", plot=plot)
+ggsave("figures/PC1vsPC2.png", plot=plot)
 plot2 <- ggplot(pca_plot_data, aes(x = PC1, y = PC3)) +
   geom_point(aes(color = Reading), size = 3) +
   labs(
@@ -75,7 +75,7 @@ plot2 <- ggplot(pca_plot_data, aes(x = PC1, y = PC3)) +
     color = "Reading"
   ) +
   theme_minimal()
-ggsave("figures/PCA: PC1 vs PC3", plot=plot2)
+ggsave("figures/PC1vsPC3.png", plot=plot2)
 plot3 <- ggplot(pca_plot_data, aes(x = PC2, y = PC3)) +
   geom_point(aes(color = Reading), size = 3) +
   labs(
@@ -85,7 +85,7 @@ plot3 <- ggplot(pca_plot_data, aes(x = PC2, y = PC3)) +
     color = "Reading"
   ) +
   theme_minimal()
-ggsave("figures/PCA: PC2 vs PC3", plot=plot3)
+ggsave("figures/PC2vsPC3.png", plot=plot3)
 ```
 
 ## kmeans
@@ -111,7 +111,7 @@ plot4 <- ggplot(reduced_data, aes(x = PC1, y = PC2, color = Cluster)) +
     color = "Cluster"
   ) +
   theme_minimal()
-ggsave("figures/K-means Clustering on Principal Components", plot=plot4)
+ggsave("figures/K-means Clustering on Principal Components.png", plot=plot4)
 ```
 
 Conclusions
