@@ -1,0 +1,119 @@
+---
+title: "BIOS611"
+author: "Iuliia"
+date: "2024-12-06"
+output: html_document
+---
+
+
+## BIOS611 project
+
+This project was created for 611 class, fall 2024. The data set I am using is a eye tracking data from 45 healthy adults. During the data collection participants read 6 short texts twice from a given perspective (of a real estate buyer or a baby sitter), then switched their perspective and read the texts again. The data set consists of 39 variables and 76517 observations. My goal is to see the patterns in the data which will help us understand the mechanisms of text processing better. Namely I am interested to look into eye tracking processing data which might predict attention allocation during text rereading. 
+
+
+## data source
+
+```{r setwd}
+setwd("~/R")
+library(tidyverse);
+library(ggplot2);
+cleaned_data <- read.csv ("./cleaned_data2.csv");
+```
+
+
+## set the labels
+
+```{r}
+SentenceRelevance_labels <- c("0 Neutral", "1 Buyer", "2 Sitter")
+SubjectPerspective_labels <- c("Started with Sitter", "Started with Buyer")
+CongruencyLevels_labels <- c("Non-congruent", "Neutral", "Congruent")
+cleaned_data$CongruencyLevels <- factor(cleaned_data$CongruencyLevels)
+```
+
+## Do PCA 
+
+Here explain why you do it 
+
+```{r}
+numeric_cols <- dplyr::select(cleaned_data, IA_First_Fixation_Time, FFdur, F2dur, FPNfix, GZD, regrdur, TTime, Skip)
+numeric_cols_scaled <- scale(numeric_cols)
+numeric_cols_scaled_clean <- numeric_cols_scaled[complete.cases(numeric_cols_scaled) & 
+                                                   !apply(numeric_cols_scaled, 1, function(x) any(is.infinite(x))), ]
+pca_result <- prcomp(numeric_cols_scaled_clean, center = TRUE, scale. = TRUE)
+summary(pca_result)
+pca_result$rotation
+pca_scores <- pca_result$x
+cleaned_data_aligned <- cleaned_data[complete.cases(numeric_cols_scaled) &
+                                       !apply(numeric_cols_scaled, 1, function(x) any(is.infinite(x))), ]
+```
+
+## biplot
+```{r}
+biplot(pca_result, scale = 0)
+```
+
+## # plot PC1 and PC2 
+```{r}
+pca_plot_data <- cbind(pca_scores, Reading = cleaned_data_aligned$Reading)
+pca_plot_data <- as.data.frame(pca_plot_data)
+plot <- ggplot(pca_plot_data, aes(x = PC1, y = PC2)) +
+  geom_point(aes(color = Reading), size = 3) +
+  labs(
+    title = "PCA: PC1 vs PC2",
+    x = "Principal Component 1",
+    y = "Principal Component 2",
+    color = "Reading"
+  ) +
+  theme_minimal()
+ggsave("figures/PCA: PC1 vs PC2", plot=plot)
+plot2 <- ggplot(pca_plot_data, aes(x = PC1, y = PC3)) +
+  geom_point(aes(color = Reading), size = 3) +
+  labs(
+    title = "PCA: PC1 vs PC3",
+    x = "Principal Component 1",
+    y = "Principal Component 3",
+    color = "Reading"
+  ) +
+  theme_minimal()
+ggsave("figures/PCA: PC1 vs PC3", plot=plot2)
+plot3 <- ggplot(pca_plot_data, aes(x = PC2, y = PC3)) +
+  geom_point(aes(color = Reading), size = 3) +
+  labs(
+    title = "PCA: PC2 vs PC3",
+    x = "Principal Component 2",
+    y = "Principal Component 3",
+    color = "Reading"
+  ) +
+  theme_minimal()
+ggsave("figures/PCA: PC2 vs PC3", plot=plot3)
+```
+
+## kmeans
+```{r}
+reduced_data <- as.data.frame(pca_scores[, 1:2]) 
+set.seed(123) 
+# Apply k-means clustering with 3 clusters (adjust k based on your use case)
+kmeans_result <- kmeans(reduced_data, centers = 3, nstart = 25)
+# Add the cluster assignments to the data
+reduced_data$Cluster <- as.factor(kmeans_result$cluster)
+# View the cluster centers
+kmeans_result$centers
+```
+
+##plot 
+```{r}
+plot4 <- ggplot(reduced_data, aes(x = PC1, y = PC2, color = Cluster)) +
+  geom_point(size = 3) +
+  labs(
+    title = "K-means Clustering on Principal Components",
+    x = "Principal Component 1",
+    y = "Principal Component 2",
+    color = "Cluster"
+  ) +
+  theme_minimal()
+ggsave("figures/K-means Clustering on Principal Components", plot=plot4)
+```
+
+Conclusions
+
+This requires further analysis. I’ll map the clusters to the original data, analyze their characteristics, and determine associations with any specific variables.
