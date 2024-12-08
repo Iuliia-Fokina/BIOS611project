@@ -1,4 +1,6 @@
 .PHONY: clean
+.PHONY: all
+all: derived_data/cleaned_data.csv derived_data/pca_plot_data.csv figures/biplot.png figures/PC1vsPC2.png figures/PC1vsPC3.png figures/PC2vsPC3.png derived_data/reduced_data.csv figures/K-means.png BIOS611.html
 .PHONY: init
 
 init:
@@ -30,4 +32,5 @@ figures/K-means.png: derived_data/reduced_data.csv K-means.R
 	Rscript K-means.R
 
 BIOS611.html: BIOS611.Rmd
-	R -e "rmarkdown::render('BIOS611PR.Rmd', output_format='html_document')"
+	R -e "rmarkdown::render('BIOS611.Rmd', output_format='html_document')"
+
