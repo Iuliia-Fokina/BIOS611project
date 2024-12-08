@@ -1,8 +1,12 @@
-this project is to analyse the eye movements data of healthy adults reading short texts.
-There are 40 variables in this data set, including perspective, condition and various eye movement measures.
-The readers had different goals (condition), to the perspective veriable should correlate with condition variable. 
-I am interested to see what eye movement measures correlate with reading perspective and condition, especially if first fixation duration, average fixation duration, gaze duration, number of first pass fixations, and number of regressions correlat ewith each other and are good predictors of a reading goal. 
-
+This project was created for 611 class, fall 2024. The data set I am using is an
+eye tracking data from 45 healthy adults. During the data collection 
+participants read 6 short texts twice from a given perspective (of a real 
+estate buyer or a baby sitter), then switched their perspective and read the 
+texts again. The data set consists of 39 variables and 76517 observations. 
+My goal is to see the patterns in the data which will help us understand the 
+mechanisms of text processing better. Namely I am interested to look into eye 
+tracking processing data which might predict attention allocation during text 
+rereading. 
 
 # Running instructions
 

@@ -16,8 +16,6 @@ derived_data/cleaned_data.csv: cleaned_data2.csv cleaned_data.R
 	Rscript cleaned_data.R
 derived_data/pca_plot_data.csv: derived_data/cleaned_data.csv pca_plot_data.R
 	Rscript pca_plot_data.R
-derived_data/pca_scores.csv: derived_data/cleaned_data.csv pca_scores.R
-	Rscript pca_scores.R
 figures/biplot.png: derived_data/cleaned_data.csv biplot.R
 	Rscript biplot.R
 figures/PC1vsPC2.png: derived_data/pca_plot_data.csv PC1vsPC2.R
