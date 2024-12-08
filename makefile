@@ -16,7 +16,9 @@ derived_data/cleaned_data.csv: cleaned_data2.csv cleaned_data.R
 	Rscript cleaned_data.R
 derived_data/pca_plot_data.csv: derived_data/cleaned_data.csv pca_plot_data.R
 	Rscript pca_plot_data.R
-figures/biplot.png: derived_data/pca_result.csv biplot.R
+derived_data/pca_scores.csv: derived_data/cleaned_data.csv pca_scores.R
+	Rscript pca_scores.R
+figures/biplot.png: derived_data/cleaned_data.csv biplot.R
 	Rscript biplot.R
 figures/PC1vsPC2.png: derived_data/pca_plot_data.csv PC1vsPC2.R
 	Rscript PC1vsPC2.R
@@ -24,7 +26,7 @@ figures/PC1vsPC3.png: derived_data/pca_plot_data.csv PC1vsPC3.R
 	Rscript PC1vsPC3.R
 figures/PC2vsPC3.png: derived_data/pca_plot_data.csv PC2vsPC3.R
 	Rscript PC2vsPC3.R
-derived_data/reduced_data.csv: pca_scores.csv reduced_data.R
+derived_data/reduced_data.csv: derived_data/cleaned_data.csv reduced_data.R
 	Rscript reduced_data.R
 figures/K-means.png: derived_data/reduced_data.csv K-means.R
 	Rscript K-means.R

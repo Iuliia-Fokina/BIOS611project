@@ -8,8 +8,8 @@ I am interested to see what eye movement measures correlate with reading perspec
 
 - `./start.sh`
 - Open `localhost:8787`
-- Username:
-- Password:
+- Username:rstudio
+- Password:abcd
 - In the terminal run:
 - - `cd ./work`
 - - `make`
